@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/11 23:37:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:53:58 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	*philo(void *arg)
 	t_philo	philo;
 
 	philo = *(t_philo *)arg;
-	// printf("%d: time_to_eat:%d time_to_sleep:%d\n", ÷philo.id, philo->time_to.eat, philo.time_to_sleep);
 	while (1)
 	{
 		printf("the philo %d sleep\n", philo.id);
