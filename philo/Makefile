@@ -6,21 +6,21 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 16:03:59 by mochegri          #+#    #+#              #
-#    Updated: 2021/11/14 16:47:52 by mochegri         ###   ########.fr        #
+#    Updated: 2021/12/11 23:40:08 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = philosopher
+NAME = philo
 
-flags = -Wall -Wextra -Werror 
-SRCS = 	main.c \
+flags = -Wall -Wextra -Werror -fsanitize=address
+SRCS = 	main.c libft.c \
 
 
 MAND = $(SRCS)
 
 $(NAME): $(SRCS)
-	@gcc $(flags) -c $(SRCS) 
+	@cc $(flags) $(SRCS) -o $(NAME)
 
 all : $(NAME)
 
@@ -31,3 +31,19 @@ fclean:	clean
 	@rm -f $(NAME)
 
 re:		fclean all
+
+test_1:	all
+	@echo "the philosopher should not eat and should die!"
+	./philo 1 800 200 200
+
+test_2 : all
+	@echo "no one should die and the simulation should stop when all the philosopher has eaten at least 7 times each"
+	./philo 5 800 200 200 7
+
+test_3 : all
+	@echo "no one should die"
+	./philo 4 410 200 200
+
+test_4 : all
+	@echo " philosopher should die!"
+	./philo 4 310 200 100
