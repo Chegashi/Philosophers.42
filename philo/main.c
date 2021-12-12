@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/11 23:53:58 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/12 19:23:21 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 // pthread_mutex_destroy, pthread_mutex_lock,
 // pthread_mutex_unlock
 
-// memset, printf, malloc, free, write, fork, kill,
-// exit, pthread_create, pthread_detach, pthread_join,
+// memset, printf, malloc, free, write,exit
+// fork, kill, pthread_create, pthread_detach, pthread_join,
 // usleep, gettimeofday, waitpid, sem_open, sem_close,
 // sem_post, sem_wait, sem_unlink
 
 #include "philo.h"
 
-int	main (int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_table		*table;
 
@@ -39,6 +39,7 @@ int	main (int ac, char **av)
 		return (ft_perror());
 	if (start_philo(table))
 		return (1);
+	ft_free(table);
 	return (0);
 }
 
@@ -74,53 +75,25 @@ int	init_fork(t_table *table)
 	int	i;
 
 	i = -1;
+	if (pthread_mutex_init(&(table->printing), NULL))
+		return (1);
 	while (++i < table->nbr_of_philo)
 		if (pthread_mutex_init(table->forks + i, NULL))
 			return (1);
 	return (0);
 }
 
-int	start_philo(t_table *table)
+void	printing(int time, int id, char *msg, pthread_mutex_t *mutex)
 {
-	int			i;
-	t_philo		*a_philo;
-
-	i = -1;
-	while (++i < table->nbr_of_philo)
-	{
-		a_philo = table->philo + i;
-		a_philo->id = i;
-		a_philo->right_fork = *(table->forks + i);
-		a_philo->leeft_fork = *(table->forks
-				+ ((i + 1) % table->nbr_of_philo));
-		a_philo->time_to = table->time_to;
-		if (pthread_create(table->thread + i, NULL, &philo, table->philo + i))
-			return (1);
-	}
-	i = -1;
-	while (++i < table->nbr_of_philo)
-	{
-		if (pthread_join(*(table->thread + i), NULL))
-			return (1);
-	}
-	return (0);
+	pthread_mutex_unlock(mutex);
+	printf("%d %d %s\n", time, id, msg);
+	pthread_mutex_unlock(mutex);
 }
 
-void	*philo(void *arg)
+void	ft_free(t_table *table)
 {
-	t_philo	philo;
-
-	philo = *(t_philo *)arg;
-	while (1)
-	{
-		printf("the philo %d sleep\n", philo.id);
-		usleep(philo.time_to.sleep);
-		pthread_mutex_lock(&philo.right_fork);
-		pthread_mutex_lock(&philo.leeft_fork);
-		printf("the philo %d eat\n", philo.id);
-		usleep(philo.time_to.eat);
-		pthread_mutex_unlock(&philo.right_fork);
-		pthread_mutex_unlock(&philo.leeft_fork);
-	}
-	return (NULL);
+	free(table->thread);
+	free(table->forks);
+	free(table->philo);
+	free(table);
 }

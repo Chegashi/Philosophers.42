@@ -6,15 +6,15 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 16:03:59 by mochegri          #+#    #+#              #
-#    Updated: 2021/12/11 23:40:08 by mochegri         ###   ########.fr        #
+#    Updated: 2021/12/12 17:21:15 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = philo
 
-flags = -Wall -Wextra -Werror -fsanitize=address
-SRCS = 	main.c libft.c \
+flags = -Wall -Wextra -Werror -fsanitize=address -g
+SRCS = 	main.c libft.c philo.c \
 
 
 MAND = $(SRCS)
