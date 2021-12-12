@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/12 19:23:21 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/12 23:53:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_table	*init_table(int ac, char **av)
 		return (NULL);
 	table = (t_table *)malloc(sizeof(t_table));
 	table->nbr_of_philo = ft_atoi(*(av + 1));
-	table->time_to.die = ft_atoi(*(av + 2)) * 1000;
-	table->time_to.eat = ft_atoi(*(av + 3)) * 1000;
-	table->time_to.sleep = ft_atoi(*(av + 4)) * 1000;
+	table->time_to.die = ft_atoi(*(av + 2));
+	table->time_to.eat = ft_atoi(*(av + 3));
+	table->time_to.sleep = ft_atoi(*(av + 4));
 	if (*(av + 5))
 		table->nbr_of_meals = ft_atoi(*(av + 5));
 	else
@@ -83,10 +83,10 @@ int	init_fork(t_table *table)
 	return (0);
 }
 
-void	printing(int time, int id, char *msg, pthread_mutex_t *mutex)
+void	printing(double time, int id, char *msg, pthread_mutex_t *mutex)
 {
 	pthread_mutex_unlock(mutex);
-	printf("%d %d %s\n", time, id, msg);
+	printf("%.0lf %d %s\n", time, id, msg);
 	pthread_mutex_unlock(mutex);
 }
 

@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <limits.h>
 
+#include "philo.h"
 // int mails = 0;
 // pthread_mutex_t mutex;
 
@@ -37,3 +39,19 @@
 //     printf("Number of mails: %d\n", mails);
 //     return 0;
 // }
+#include <sys/time.h>
+#include <stdio.h>
+
+int main()
+{
+    struct timeval current_time;
+
+    printf("INT_MAX: %d\nUINT_MAX : %u\nLONG_MAX : %ld\nULONG_MAX:%lu\n", INT_MAX, UINT_MAX, LONG_MAX, ULONG_MAX);
+    for (int i = 0; i < 10; i++)
+    {
+        gettimeofday(&current_time, NULL);
+        printf("seconds : %ld\tmicro seconds : %d\t micro seconds : %ld\n",current_time.tv_sec, current_time.tv_usec, current_time.tv_sec * 1000 + current_time.tv_usec/1000);
+        usleep(1000000);
+    }
+   return 0;
+}
