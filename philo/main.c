@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/12 23:53:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/14 00:52:46 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,63 +31,23 @@
 int	main(int ac, char **av)
 {
 	t_table		*table;
+	int			a_philo_is_die;
 
-	table = init_table(ac, av);
+	a_philo_is_die = 0;
+	table = init_table(ac, av, &a_philo_is_die);
 	if (!table)
 		return (ft_perror());
 	if (init_fork(table))
 		return (ft_perror());
-	if (start_philo(table))
-		return (1);
-	ft_free(table);
-	return (0);
-}
-
-t_table	*init_table(int ac, char **av)
-{
-	t_table	*table;
-
-	if (ac < 5 || ac > 6)
-		return (NULL);
-	table = (t_table *)malloc(sizeof(t_table));
-	table->nbr_of_philo = ft_atoi(*(av + 1));
-	table->time_to.die = ft_atoi(*(av + 2));
-	table->time_to.eat = ft_atoi(*(av + 3));
-	table->time_to.sleep = ft_atoi(*(av + 4));
-	if (*(av + 5))
-		table->nbr_of_meals = ft_atoi(*(av + 5));
-	else
-		table->nbr_of_meals = 0;
-	if (table->nbr_of_philo < 0 || table->time_to.die < 0
-		|| table->time_to.eat < 0 || table->time_to.sleep < 0
-		|| table->nbr_of_meals < 0)
-		return (NULL);
-	table->thread = (pthread_t *)malloc(sizeof(pthread_t)
-			* table->nbr_of_philo);
-	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* table->nbr_of_philo);
-	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->nbr_of_philo);
-	return (table);
-}
-
-int	init_fork(t_table *table)
-{
-	int	i;
-
-	i = -1;
-	if (pthread_mutex_init(&(table->printing), NULL))
-		return (1);
-	while (++i < table->nbr_of_philo)
-		if (pthread_mutex_init(table->forks + i, NULL))
-			return (1);
-	return (0);
+	return (start_philo(table));
 }
 
 void	printing(double time, int id, char *msg, pthread_mutex_t *mutex)
 {
 	pthread_mutex_unlock(mutex);
-	printf("%.0lf %d %s\n", time, id, msg);
-	pthread_mutex_unlock(mutex);
+	printf("%.0lf %d %s\n", time, id + 1, msg);
+	// if (*msg != 'd')
+	// 	pthread_mutex_unlock(mutex);
 }
 
 void	ft_free(t_table *table)

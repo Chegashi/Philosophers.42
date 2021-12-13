@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 16:03:59 by mochegri          #+#    #+#              #
-#    Updated: 2021/12/12 21:07:37 by mochegri         ###   ########.fr        #
+#    Updated: 2021/12/13 23:33:37 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = philo
 
 flags = -Wall -Wextra -Werror -fsanitize=address -g
-SRCS = 	main.c libft.c philo.c \
+SRCS = 	main.c libft.c philo.c table.c\
 
 
 MAND = $(SRCS)
@@ -46,4 +46,4 @@ test_3 : all
 
 test_4 : all
 	@echo " philosopher should die!"
-	./philo 4 310 200 100
+	./philo 2 160 60 100
