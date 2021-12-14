@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:03:46 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/14 00:34:13 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/14 19:19:25 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_time_to
 typedef struct s_philo
 {
 	int				id;
-	pthread_mutex_t	leeft_fork;
-	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*leeft_fork;
+	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*printing;
 	t_time_to		time_to;
 	double			time_of_last_meals;
@@ -52,7 +52,7 @@ typedef struct s_table
 	int					nbr_of_meals;
 	t_philo				*philo;
 	pthread_mutex_t		*forks;
-	pthread_mutex_t		printing;
+	pthread_mutex_t		*printing;
 	pthread_t			*thread;
 	t_time_to			time_to;
 	int					*a_philo_is_die;
@@ -72,5 +72,7 @@ int			sleeping(t_philo *philo);
 void		ft_free(t_table *table);
 double		get_time(void);
 void		init_philo(t_philo *philo, int i, t_table *table);
+int			parssing(t_table *table, char *s);
+void		ft_usleep(int i);
 
 #endif

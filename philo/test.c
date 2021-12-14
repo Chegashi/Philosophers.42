@@ -54,7 +54,7 @@ int main()
 //     {
 //         gettimeofday(&current_time, NULL);
 //         printf("seconds : %ld\tmicro seconds : %d\t micro seconds : %ld\n",current_time.tv_sec, current_time.tv_usec, current_time.tv_sec * 1000 + current_time.tv_usec/1000);
-//         usleep(1000000);
+//         ft_usleep(1000000);
 //     }
 //    return 0;
 // }
