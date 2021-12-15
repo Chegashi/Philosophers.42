@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/15 11:14:42 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/15 17:09:18 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ int	main(int ac, char **av)
 	if (checker(table))
 		return (ft_free (table));
 	i = -1;
-	while (++i < table->nbr_of_philo)
-	{
-		if (pthread_join(*(table->thread + i), NULL))
-			return (1);
-	}
 	return (0);
 }
 
@@ -49,9 +44,18 @@ void	printing(double time, int id, char *msg, pthread_mutex_t *mutex)
 
 int	ft_free(t_table *table)
 {
+	int i;
+
+	i = -1;
+	while(++i < table->nbr_of_philo)
+		pthread_detach(table->thread[i]);
 	free(table->thread);
+	i = -1;
+	while (++i < table->nbr_of_philo)
+		pthread_mutex_destroy(table->forks + i);
 	free(table->forks);
-	free(table->philo);
+	pthread_mutex_destroy(table->printing);
+	free(table->printing);
 	free(table);
 	return (0);
 }
