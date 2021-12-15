@@ -6,13 +6,13 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 20:36:48 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/14 18:07:05 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/14 23:03:59 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_table	*init_table(int ac, char **av, int *a_philo_is_die)
+t_table	*init_table(int ac, char **av)
 {
 	t_table	*table;
 
@@ -32,7 +32,6 @@ t_table	*init_table(int ac, char **av, int *a_philo_is_die)
 			* table->nbr_of_philo);
 	table->printing = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->nbr_of_philo);
-	table->a_philo_is_die = a_philo_is_die;
 	return (table);
 }
 
