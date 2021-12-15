@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/15 19:33:01 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/15 20:03:16 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	printing(double time, int id, char *msg, pthread_mutex_t *mutex)
 
 int	ft_free(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < table->nbr_of_philo)
@@ -63,9 +63,11 @@ int	ft_free(t_table *table)
 int	checker(t_table *table)
 {
 	int	i;
+	int	j;
 
 	while (1)
 	{
+		j = 0;
 		i = -1;
 		while (++i < table->nbr_of_philo)
 		{
@@ -77,7 +79,9 @@ int	checker(t_table *table)
 				return (1);
 			}
 			if (table->philo[i].nbr_of_meals == 0)
-				return (1);
+				j++;
 		}
+		if (j == table->nbr_of_philo)
+			return (1);
 	}
 }
