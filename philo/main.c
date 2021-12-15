@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:09:25 by mochegri          #+#    #+#             */
-/*   Updated: 2021/12/15 17:09:18 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/12/15 19:33:01 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 	while (++i < table->nbr_of_philo)
 	{
 		init_philo(table->philo + i, i, table);
-		ft_usleep(100);
+		usleep(100);
 	}
 	if (checker(table))
 		return (ft_free (table));
@@ -47,7 +47,7 @@ int	ft_free(t_table *table)
 	int i;
 
 	i = -1;
-	while(++i < table->nbr_of_philo)
+	while (++i < table->nbr_of_philo)
 		pthread_detach(table->thread[i]);
 	free(table->thread);
 	i = -1;
